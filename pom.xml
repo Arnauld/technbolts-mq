@@ -27,6 +27,22 @@
 	<!--         Dependencies                                 -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<dependencies>
+	
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!--         jtidy                    -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+		<dependency>
+			<groupId>jtidy</groupId>
+			<artifactId>jtidy</artifactId>
+			<version>r938</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jtidy-r938.jar</systemPath>
+		</dependency>
+
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!--         functional               -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 		<dependency>
 			<groupId>org.functionaljava</groupId>
@@ -34,11 +50,37 @@
 			<version>${functionaljava.version}</version>
 		</dependency>
 
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!--         log4j                    -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!--         commons                  -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -52,6 +94,9 @@
 			<version>${commons-lang.version}</version>
 		</dependency>
 
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!--         groovy                   -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-all</artifactId>
@@ -75,7 +120,9 @@
 		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 		<!--         Spring                   -->
 		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-		<!--  -->
+		<!-- 
+			annotation jsr250
+		 -->
 		<dependency>
 			<groupId>javax.annotation</groupId>
 			<artifactId>jsr250-api</artifactId>
@@ -83,8 +130,7 @@
 		</dependency>
 
 		<!--
-			Core utilities used by other modules. Define this if you use Spring
-			Utility APIs (org.springframework.core.*/org.springframework.util.*)
+			Core utilities used by other modules. Define this if you use Spring Utility APIs (org.springframework.core.*/org.springframework.util.*)
 		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -93,10 +139,8 @@
 		</dependency>
 
 		<!--
-			Transaction Management Abstraction (depends on spring-core,
-			spring-beans, spring-aop, spring-context) Define this if you use
-			Spring Transactions or DAO Exception Hierarchy
-			(org.springframework.transaction.*/org.springframework.dao.*)
+			Transaction Management Abstraction (depends on spring-core, spring-beans, spring-aop, spring-context) Define this if you use Spring
+			Transactions or DAO Exception Hierarchy (org.springframework.transaction.*/org.springframework.dao.*)
 		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -105,8 +149,7 @@
 		</dependency>
 
 		<!--
-			Application Context (depends on spring-core, spring-expression,
-			spring-aop, spring-beans) This is the central artifact for Spring's
+			Application Context (depends on spring-core, spring-expression, spring-aop, spring-beans) This is the central artifact for Spring's
 			Dependency Injection Container and is generally always defined
 		-->
 		<dependency>
@@ -116,8 +159,7 @@
 		</dependency>
 
 		<!--
-			Various Application Context utilities, including EhCache, JavaMail,
-			Quartz, and Freemarker integration Define this if you need any of
+			Various Application Context utilities, including EhCache, JavaMail, Quartz, and Freemarker integration Define this if you need any of
 			these integrations
 		-->
 		<dependency>
@@ -127,8 +169,7 @@
 		</dependency>
 
 		<!--
-			Aspect Oriented Programming (AOP) Framework (depends on spring-core,
-			spring-beans) Define this if you use Spring AOP APIs
+			Aspect Oriented Programming (AOP) Framework (depends on spring-core, spring-beans) Define this if you use Spring AOP APIs
 			(org.springframework.aop.*)
 		-->
 		<dependency>
@@ -144,8 +185,7 @@
 		</dependency>
 
 		<!--
-			Support for testing Spring applications with tools such as JUnit and
-			TestNG This artifact is generally always defined with a 'test' scope
+			Support for testing Spring applications with tools such as JUnit and TestNG This artifact is generally always defined with a 'test' scope
 			for the integration testing framework and unit testing stubs
 		-->
 		<dependency>

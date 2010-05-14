@@ -18,7 +18,7 @@ public class BootstrapTest extends AbstractJUnit4SpringContextTests {
 	@Test
 	public void testEx1 () throws InterruptedException {
 		assertThat(rssReader, notNullValue());
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		System.out.println("Done!");
 	}
 

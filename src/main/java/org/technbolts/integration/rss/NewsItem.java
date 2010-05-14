@@ -1,5 +1,7 @@
 package org.technbolts.integration.rss;
 
+import org.technbolts.util.HtmlUtils;
+
 public class NewsItem {
 
 	private String title;
@@ -32,11 +34,20 @@ public class NewsItem {
 		this.title = title;
 		return this;
 	}
+	public String getContentAsText () {
+		String string = content;
+		if(string==null)
+			string = description;
+		return HtmlUtils.htmlToText(string);
+	}
 
 	@Override
 	public String toString() {
-		return "NewsItem [author=" + author + ", content=" + content
-				+ ", description=" + description + ", title=" + title + "]";
+		return "NewsItem [" +//
+				"author=" + author + ", " +//
+				"content=" + content + ", " +//
+				"description=" + description + ", " +//
+				"title=" + title + "]";
 	}
 	
 }

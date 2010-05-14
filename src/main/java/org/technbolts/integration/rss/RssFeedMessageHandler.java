@@ -17,7 +17,7 @@ public class RssFeedMessageHandler {
 	public void handleMessage(Message<List<NewsItem>> message) {
 		StringBuilder  builder = new StringBuilder("\n");
 		for(NewsItem news : message.getPayload())
-			builder.append(news).append("\n");
+			builder.append(news.getContentAsText()).append("\n");
 		
 		if (logger.isDebugEnabled())
 			logger.debug(//

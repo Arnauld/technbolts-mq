@@ -29,7 +29,7 @@ public class RssReader implements MessageSource<SyndFeed> {
 	private FeedFetcher feedFetcher;
 	private FetcherListener fetcherListener;
 
-	private String url = "http://www.gridshore.nl/feed/";
+	private String url = "http://feeds.feedburner.com/nosql";
 
 	public Message<SyndFeed> receive() {
 		if (logger.isDebugEnabled())
