@@ -18,6 +18,8 @@
 		<commons-lang.version>2.4</commons-lang.version>
 		<groovy.version>1.7.0</groovy.version>
 
+		<scala.version>2.7.2</scala.version>
+
 		<junit.version>4.8.1</junit.version>
 		<hamcrest-all.version>1.1</hamcrest-all.version>
 		<mockito.version>1.8.4</mockito.version>
@@ -27,7 +29,16 @@
 	<!--         Dependencies                                 -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<dependencies>
-	
+
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!--         scala                    -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+
 		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 		<!--         jtidy                    -->
 		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -532,15 +543,56 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
 				</configuration>
 			</plugin>
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+			<!--         scala                    -->
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-reactor-plugin</artifactId>
-				<version>1.0</version>
+				<groupId>org.scala-tools</groupId>
+				<artifactId>maven-scala-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>scala-compile-first</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>add-source</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>scala-test-compile</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<launchers>
+						<launcher>
+							<id>foo</id>
+							<mainClass>org.technbolts.field.FieldUseCases</mainClass>
+							<!--
+                          <mainClass>org.example.MyClass</mainClass>
+                            -->
+							<!-- args are optional -->
+							<args>
+								<arg>arg1</arg>
+							</args>
+							<!-- jvmArgs are optional -->
+							<jvmArgs>
+								<jvmArg>-Xmx128m</jvmArg>
+							</jvmArgs>
+						</launcher>
+						<!-- you could define other launcher -->
+					</launchers>
+				</configuration>
 			</plugin>
 
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -630,6 +682,26 @@
 			<name>Maven Codehaus repository</name>
 			<url>http://repository.codehaus.org/</url>
 		</repository>
+
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!--         scala                    -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<repository>
+			<id>scala-tools.org</id>
+			<name>Scala-tools Maven2 Repository</name>
+			<url>http://scala-tools.org/repo-releases</url>
+		</repository>
 	</repositories>
+
+	<pluginRepositories>
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!--         scala                    -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<pluginRepository>
+			<id>scala-tools.org</id>
+			<name>Scala-tools Maven2 Repository</name>
+			<url>http://scala-tools.org/repo-releases</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 </project>

@@ -20,7 +20,7 @@ import com.sun.syndication.fetcher.impl.HashMapFeedInfoCache;
 import com.sun.syndication.fetcher.impl.HttpURLFeedFetcher;
 import com.sun.syndication.io.FeedException;
 
-@Service("rssReader")
+@Service("rssReader-2")
 public class RssReader implements MessageSource<SyndFeed> {
 
 	private static Logger logger = Logger.getLogger(RssReader.class);
@@ -38,7 +38,7 @@ public class RssReader implements MessageSource<SyndFeed> {
 		SyndFeed feed = obtainFeedItems();
 		return MessageBuilder//
 				.withPayload(feed)//
-				.setHeader("feedid", "gridshore")//
+				.setHeader("feed-url", url)//
 				.build();
 	}
 

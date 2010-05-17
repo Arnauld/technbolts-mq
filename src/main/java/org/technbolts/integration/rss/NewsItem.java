@@ -1,5 +1,7 @@
 package org.technbolts.integration.rss;
 
+import static java.lang.String.format;
+
 import org.technbolts.util.HtmlUtils;
 
 public class NewsItem {
@@ -43,11 +45,9 @@ public class NewsItem {
 
 	@Override
 	public String toString() {
-		return "NewsItem [" +//
-				"author=" + author + ", " +//
-				"content=" + content + ", " +//
-				"description=" + description + ", " +//
-				"title=" + title + "]";
+		return format(
+				"NewsItem [author=%1$s, content=%2$s, description=%3$s, title=%4$s]", 
+				author, content, description, title);
 	}
 	
 }
