@@ -9,9 +9,9 @@
 	<int:annotation-config />
 
 	<int:channel id="inputRssFeedChannel" />
-	<int:channel id="inputNewsItemChannel" />
+	<int:channel id="inputMsgDataChannel" />
 
-	<int:inbound-channel-adapter channel="inputRssFeedChannel" ref="rssReader">
+	<int:inbound-channel-adapter channel="inputRssFeedChannel" ref="rssFetcher">
 		<int:poller max-messages-per-poll="1">
 			<int:interval-trigger interval="5" time-unit="SECONDS" />
 		</int:poller>
@@ -20,8 +20,13 @@
 	<int:service-activator input-channel="inputRssFeedChannel" ref="rssFeedMessageHandler" />
  	-->
 
-	<int:transformer input-channel="inputRssFeedChannel" output-channel="inputNewsItemChannel" ref="syndFeedNewsItemTransformer" />
-	<int:service-activator input-channel="inputNewsItemChannel" ref="rssFeedMessageHandler" />
+	<int:transformer
+            input-channel ="inputRssFeedChannel"
+            output-channel="inputMsgDataChannel"
+            ref="msgDataMessageHandler" />
+	<int:service-activator 
+            input-channel="inputMsgDataChannel"
+            ref="msgDataMessageHandler" />
 
 	<!-- Other beans-->
 </beans>

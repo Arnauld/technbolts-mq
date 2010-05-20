@@ -2,15 +2,15 @@ package org.technbolts.model
 
 import java.util.Date
 
-object Msg {
+object MsgData {
   val DATE  = "date"
   val TITLE = "title"
 }
 
-class Msg extends HasParts with HasHeaders with HasTags {
+class MsgData extends HasParts with HasHeaders with HasTags {
 
-  def date():Date =    { getHeader(Msg.DATE).asInstanceOf[Date]}
-  def title():String = { getHeaderAsString(Msg.TITLE).getOrElse(null)}
+  def date():Date =    { getHeader(MsgData.DATE).asInstanceOf[Date]}
+  def title():String = { getHeaderAsString(MsgData.TITLE).getOrElse(null)}
 
   def textParts():Seq[TextPart] = {
     parts.filter {p => p match {
@@ -28,5 +28,9 @@ class Msg extends HasParts with HasHeaders with HasTags {
       else
         a;
     });
+  }
+
+  def contentAsText (): String = {
+    "text"
   }
 }

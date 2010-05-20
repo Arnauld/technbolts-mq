@@ -14,7 +14,7 @@ import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 
-@Component("syndFeedNewsItemTransformer")
+@Component("syndFeedNewsItemTransformer-2")
 public class SyndFeedToNewsItemTransformer {
 	private Logger logger = Logger
 			.getLogger(SyndFeedToNewsItemTransformer.class);
