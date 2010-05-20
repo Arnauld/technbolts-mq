@@ -23,7 +23,7 @@
 	<int:transformer
             input-channel ="inputRssFeedChannel"
             output-channel="inputMsgDataChannel"
-            ref="msgDataMessageHandler" />
+            ref="syndFeedToMsgDataTransformer" />
 	<int:service-activator 
             input-channel="inputMsgDataChannel"
             ref="msgDataMessageHandler" />

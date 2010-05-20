@@ -3,8 +3,8 @@ package org.technbolts.integration
 import org.springframework.stereotype.Service
 import org.apache.log4j.Logger
 import org.springframework.integration.core.Message
-import org.technbolts.model.MsgData
 import java.util.Date
+import org.technbolts.model.{MsgDataSet, MsgData}
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,9 +18,9 @@ class MsgDataMessageHandler {
   private var logger: Logger = Logger.getLogger(classOf[MsgDataMessageHandler])
 
 
-  def handleMessage(message: Message[List[MsgData]]): Unit = {
+  def handleMessage(message: Message[MsgDataSet]): Unit = {
     var builder: StringBuilder = new StringBuilder("\n")
-    for (msg <- message.getPayload)
+    for (msg <- message.getPayload.msgs)
       builder.append(msg.contentAsText).append("\n")
 
     val date:Date = new Date(message.getHeaders.getTimestamp.asInstanceOf[Long])

@@ -7,13 +7,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.technbolts.integration.rss.RssReader;
+import org.technbolts.integration.rss.RssFetcher;
 
 @ContextConfiguration(locations={"classpath:applicationContext.xml"})
 public class BootstrapTest extends AbstractJUnit4SpringContextTests {
 	
 	@Autowired
-	private RssReader rssReader;
+	private RssFetcher rssReader;
 	
 	@Test
 	public void testEx1 () throws InterruptedException {

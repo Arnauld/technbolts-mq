@@ -7,6 +7,8 @@ object MsgData {
   val TITLE = "title"
 }
 
+class MsgDataSet (val msgs:List[MsgData])
+
 class MsgData extends HasParts with HasHeaders with HasTags {
 
   def date():Date =    { getHeader(MsgData.DATE).asInstanceOf[Date]}
