@@ -1,0 +1,16 @@
+h1. GIT 
+
+* git status
+* git add src/main/...
+* git commit
+* git push
+
+
+h1. Protocol buffer
+
+* apt-get install protobuf-compiler
+* svn co http://protobuf.googlecode.com/svn/branches/maven-plugin/tools/maven-plugin
+** cd maven-plugin
+** modify the pom.xml: add java 1.5 build + remove parent dependency
+** mvn install
+

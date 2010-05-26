@@ -47,15 +47,9 @@ class RssFetcher extends MessageSource[SyndFeed] {
         logger.debug(">"+feed)
     }
     catch {
-      case e: IOException => {
-        logger.error("IO Problem while retrieving feed", e)
-      }
-      case e: FeedException => {
-        logger.error("Feed Problem while retrieving feed", e)
-      }
-      case e: FetcherException => {
-        logger.error("Fetcher Problem while retrieving feed", e)
-      }
+      case e: IOException      => logger.error("IO Problem while retrieving feed", e)
+      case e: FeedException    => logger.error("Feed Problem while retrieving feed", e)
+      case e: FetcherException => logger.error("Fetcher Problem while retrieving feed", e)
     }
     return feed
   }

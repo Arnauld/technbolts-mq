@@ -10,23 +10,39 @@
 
 	<int:channel id="inputRssFeedChannel" />
 	<int:channel id="inputMsgDataChannel" />
+    <int:channel id="defaultReplyChannel" />
 
 	<int:inbound-channel-adapter channel="inputRssFeedChannel" ref="rssFetcher">
 		<int:poller max-messages-per-poll="1">
 			<int:interval-trigger interval="5" time-unit="SECONDS" />
 		</int:poller>
 	</int:inbound-channel-adapter>
-	<!-- 
-	<int:service-activator input-channel="inputRssFeedChannel" ref="rssFeedMessageHandler" />
- 	-->
 
 	<int:transformer
             input-channel ="inputRssFeedChannel"
             output-channel="inputMsgDataChannel"
             ref="syndFeedToMsgDataTransformer" />
-	<int:service-activator 
+
+    <int:gateway id="msgDataGateway"
+                 service-interface="org.technbolts.integration.MsgDataGateway"
+                 default-reply-channel="defaultReplyChannel"
+                 default-request-channel="inputMsgDataChannel"/>
+
+    <int:service-activator
             input-channel="inputMsgDataChannel"
-            ref="msgDataMessageHandler" />
+            ref="msgDataMessageHandler"/>
+
+    <int:service-activator
+            input-channel="defaultReplyChannel"
+            ref="loggingHandler"/>
+
+    <bean id="loggingHandler" class="org.springframework.integration.handler.LoggingHandler">
+        <constructor-arg value="INFO"/>
+    </bean>
 
 	<!-- Other beans-->
+    <bean class="org.technbolts.di.RichDomainObjectFactory" factory-method="autoWireFactory"/>
+
+
+
 </beans>

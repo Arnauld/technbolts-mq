@@ -13,17 +13,29 @@ object Part {
 }
 
 trait Part extends HasHeaders {
-  def contentType():ContentType = {
+
+  def contentType:ContentType = {
     getHeader(Part.CONTENT_TYPE) match {
       case Some(c:ContentType) => c
       case _ => null
     }
   }
+
+  def contentType(contentType:ContentType) = {
+    setHeader(Part.CONTENT_TYPE,  contentType)
+    this
+  }
+
   def visibleTextWeight ():Int = {
     ContentType.visibleTextWeight(contentType)
   }
 }
 
-class TextPart extends Part {
-  var text: Option[String] = None
+object TextPart {
+  def apply(text:String) = {
+    new TextPart(text)
+  }
+}
+
+class TextPart(var text:String) extends Part {
 }
