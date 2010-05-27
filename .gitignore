@@ -1,2 +1,10 @@
-/.manager
-/target
+# Ignore all dotfiles...
+.*
+# except for .gitignore
+!.gitignore
+
+
+
+# Ignore target...
+target/
+
