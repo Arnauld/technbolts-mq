@@ -12,14 +12,18 @@
         <spring-integration.version>1.0.3.RELEASE</spring-integration.version>
         <spring.version>3.0.0.RELEASE</spring.version>
 
-        <functionaljava.version>2.19</functionaljava.version>
         <log4j.version>1.2.15</log4j.version>
+        <slf4j.version>1.5.10</slf4j.version>
+
+        <functionaljava.version>2.19</functionaljava.version>
         <commons-io.version>1.4</commons-io.version>
         <commons-lang.version>2.4</commons-lang.version>
         <groovy.version>1.7.0</groovy.version>
         <joda-time.version>1.6</joda-time.version>
 
         <berkeley-db.version>4.0.103</berkeley-db.version>
+
+        <htmlunit.version>2.7</htmlunit.version>
 
         <scala.version>2.7.2</scala.version>
 
@@ -77,6 +81,20 @@
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!--         log4j                    -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- log4j for logging during tests   -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>log4j</groupId>
@@ -139,6 +157,15 @@
             <groupId>rome</groupId>
             <artifactId>rome-fetcher</artifactId>
             <version>1.0</version>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!--         Html Unit                -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>${htmlunit.version}</version>
         </dependency>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -640,31 +667,6 @@
                 </configuration>
             </plugin>
 
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <!--         Protocol Buffer          -->
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <plugin>
-                <groupId>com.google.protobuf.tools</groupId>
-                <artifactId>maven-protoc-plugin</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-                <executions>
-                    <execution>
-                        <id>generate-sources</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <includes>
-                                <param>**/*.proto</param>
-                            </includes>
-                        </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <protocExecutable>/usr/bin/protoc</protocExecutable>
-                </configuration>
-            </plugin>
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <!--         groovy                   -->
@@ -717,6 +719,41 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>protobuf</id>
+            <build>
+                <plugins>
+                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                    <!--         Protocol Buffer          -->
+                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                    <plugin>
+                        <groupId>com.google.protobuf.tools</groupId>
+                        <artifactId>maven-protoc-plugin</artifactId>
+                        <version>0.0.1-SNAPSHOT</version>
+                        <executions>
+                            <execution>
+                                <id>generate-sources</id>
+                                <goals>
+                                    <goal>compile</goal>
+                                </goals>
+                                <phase>generate-sources</phase>
+                                <configuration>
+                                    <includes>
+                                        <param>**/*.proto</param>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <protocExecutable>/usr/bin/protoc</protocExecutable>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
 
     <repositories>

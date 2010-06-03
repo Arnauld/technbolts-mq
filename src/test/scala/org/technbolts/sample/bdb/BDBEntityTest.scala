@@ -6,8 +6,8 @@ import java.io.File
 import com.sleepycat.persist._
 import evolve.{EvolveConfig, Conversion, Converter, Mutations}
 import model.{EntityModel, SecondaryKey, PrimaryKey, Entity}
-import org.junit.{After, Test, Before}
 import raw.{RawType, RawObject}
+import org.junit.{Ignore, After, Test, Before}
 
 class PersonV0Conversion extends Conversion {
 
@@ -72,6 +72,7 @@ class Person(nameParam: String, addressParam: String) {
   override def toString = "Person: " + id + ' ' + name + ' ' + address + ' ' + phone
 }
 
+@Ignore
 class BDBEntityTest {
   var envConfig: EnvironmentConfig = null
   var env: Environment = null

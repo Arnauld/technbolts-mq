@@ -17,6 +17,7 @@ trait Part extends HasHeaders {
   def contentType:ContentType = {
     getHeader(Part.CONTENT_TYPE) match {
       case Some(c:ContentType) => c
+      case Some(s:String) => ContentType(s)
       case _ => null
     }
   }
