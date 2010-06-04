@@ -3,11 +3,12 @@ package org.technbolts.storage
 import collection.mutable.ListBuffer
 
 trait HasTags {
-  val tags = new ListBuffer
+  val tags:ListBuffer[String] = new ListBuffer[String]
 }
 
 class ModelBase {
-  var subs:List[ModelBase] = _
+  var subsScala:List[ModelBase] = _
+  var subsJCL:java.util.List[ModelBase] = _
   val size = 17
 }
 
