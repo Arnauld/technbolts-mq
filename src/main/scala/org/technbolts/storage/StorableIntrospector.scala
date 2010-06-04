@@ -5,6 +5,7 @@ import java.lang.{Class => JClass}
 import org.slf4j.{Logger, LoggerFactory}
 import collection.mutable.{HashMap, ListBuffer}
 import java.lang.reflect.{Type, ParameterizedType, Field => JField}
+import org.technbolts.io.{BytesReader, BytesWriter}
 
 /**
  *
@@ -158,14 +159,6 @@ class FieldDesc(val field: JField) {
   var itemType: TypeDesc = _
   var mode = FieldDesc.Direct
   var serializer:Serializer[_] = _
-}
-
-trait BytesWriter {
-  def writeInt(v:Int):BytesWriter
-}
-
-trait BytesReader {
-  def readInt():Int
 }
 
 trait Serializer[A] {
