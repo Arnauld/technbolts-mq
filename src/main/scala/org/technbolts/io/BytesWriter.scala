@@ -18,6 +18,12 @@ trait BytesWriter {
   def writeByte(v:Int):BytesWriter
 
   /**
+   * Writes the specified byte (the low eight bits of the argument.
+   * a 1-byte value.
+   */
+  def writeByte(v:Long):BytesWriter = writeByte(v.asInstanceOf[Int])
+
+  /**
    * Writes <code>len</code> bytes from the specified byte array
    * starting at offset <code>off</code> to the underlying output.
    */
@@ -65,8 +71,8 @@ trait BytesWriter {
   def writeInt(v:Int):BytesWriter = {
     writeByte((v >>> 24) & 0xFF)
     writeByte((v >>> 16) & 0xFF)
-    writeByte((v >>> 8) & 0xFF)
-    writeByte((v >>> 0) & 0xFF)
+    writeByte((v >>>  8) & 0xFF)
+    writeByte((v >>>  0) & 0xFF)
   }
 
   /**
@@ -74,6 +80,9 @@ trait BytesWriter {
    * bytes, high byte first.
    */
   def writeLong(v:Long):BytesWriter = {
+    writeInt((v >>> 32).asInstanceOf[Int])
+    writeInt((v >>>  0).asInstanceOf[Int])
+    /*
     writeByte((v >>> 56) & 0xFF)
     writeByte((v >>> 48) & 0xFF)
     writeByte((v >>> 40) & 0xFF)
@@ -82,6 +91,7 @@ trait BytesWriter {
     writeByte((v >>> 16) & 0xFF)
     writeByte((v >>> 8) & 0xFF)
     writeByte((v >>> 0) & 0xFF)
+    */
   }
 
   /**
@@ -91,7 +101,7 @@ trait BytesWriter {
    * output as a 4-byte quantity, high byte first.
    */
   def writeFloat(v:Float):BytesWriter = {
-    writeInt(Float.floatToIntBits(v))
+    writeInt(java.lang.Float.floatToIntBits(v))
   }
 
   /**
@@ -101,7 +111,7 @@ trait BytesWriter {
    * output as an 8-byte quantity, high byte first.
    */
   def writeDouble(v:Double):BytesWriter = {
-    writeLong(Double.doubleToLongBits(v))
+    writeLong(java.lang.Double.doubleToLongBits(v))
   }
 
   /**

@@ -43,15 +43,15 @@ trait BytesReader {
    * <code>b[off]</code> and elements <code>b[off+len]</code> through
    * <code>b[b.length-1]</code> are unaffected.
    */
-  def readBytes(b: Byte, off: Int, len: Int): Int
+  def readBytes(in:Array[Byte], off: Int, len: Int): Int
 
   /**
    * Reads some number of bytes from the contained input stream and
    * stores them into the buffer array <code>b</code>. The number of
    * bytes actually read is returned as an integer.
    */
-  def readBytes(out:Array[Byte]):Int = {
-    readBytes(out, 0, out.length)
+  def readBytes(bytes:Array[Byte]):Int = {
+    readBytes(bytes, 0, bytes.length)
   }
 
   /**
@@ -83,7 +83,7 @@ trait BytesReader {
    *
    */
   def readFully(bytes: Array[Byte]):Array[Byte] = {
-    readFully(bytes,0,out.length)
+    readFully(bytes, 0, bytes.length)
     bytes
   }
 
@@ -152,14 +152,14 @@ trait BytesReader {
    *
    */
   def readFloat():Float = {
-    Float.intBitsToFloat(readInt)
+    java.lang.Float.intBitsToFloat(readInt)
   }
 
   /**
    *
    */
   def readDouble():Double = {
-    Double.longBitsToDouble(readLong)
+    java.lang.Double.longBitsToDouble(readLong)
   }
 
   /**

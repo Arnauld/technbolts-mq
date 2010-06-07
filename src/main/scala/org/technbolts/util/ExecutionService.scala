@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import org.springframework.stereotype.Service
 import java.util.concurrent.{ThreadFactory, Executors}
 import java.lang.Runnable
-import org.apache.log4j.Logger
+import org.slf4j.{Logger, LoggerFactory}
 
 /**
  *
@@ -14,7 +14,7 @@ object ExecutionService {
 
 @Service("sharedExecutionService")
 class ExecutionService {
-  private var logger: Logger = Logger.getLogger(classOf[ExecutionService])
+  private var logger: Logger = LoggerFactory.getLogger(classOf[ExecutionService])
 
   var scheduledExecutor = Executors.newScheduledThreadPool(1, new DaemonThreadFactory("SharedWorker-"))
 

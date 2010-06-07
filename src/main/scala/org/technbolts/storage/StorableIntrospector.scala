@@ -30,6 +30,9 @@ class StorableIntrospector {
     }
   }
 
+  // for implicit conversion
+  import PrimitiveSerializer._
+
   def fillType(typeDesc: TypeDesc): Unit = {
     val klass: JClass[_] = typeDesc.klass
 
@@ -43,8 +46,13 @@ class StorableIntrospector {
 
     if (klass.isPrimitive) {
       typeDesc.omitted = false
-      typeDesc.serializer = klass match {
-        case Int => new IntSerializer()
+
+      val intClass = classOf[Int]
+      klass match {
+        case `intClass` => {
+          typeDesc.reader = asReader((b:BytesReader) => b.readInt)
+          typeDesc.writer = asWriter((v:Int,b:BytesWriter) => b.writeInt(v))
+        }
         case _ => throw new UnsupportedOperationException
       }
       return typeDesc
@@ -144,7 +152,8 @@ class StorableIntrospector {
 class TypeDesc(val klass: java.lang.Class[_]) {
   var fields: Array[FieldDesc] = _
   var omitted = false
-  var serializer:Serializer[_] = _
+  var writer:Writer[_] = _
+  var reader:Reader[_] = _
 }
 
 object FieldDesc {
@@ -158,15 +167,22 @@ class FieldDesc(val field: JField) {
   var omitted = false
   var itemType: TypeDesc = _
   var mode = FieldDesc.Direct
-  var serializer:Serializer[_] = _
+  var writer:Writer[_] = _
+  var reader:Reader[_] = _
 }
 
-trait Serializer[A] {
+object PrimitiveSerializer {
+  def asWriter[A] (w:(A, BytesWriter) => Any) = new Writer[A] {
+      def write(a:A, b:BytesWriter):Unit = w(a,b)
+    }
+  def asReader[A] (r:(BytesReader) => A) = new Reader[A] {
+      def read(b:BytesReader) = r(b)
+    }
+}
+
+trait Writer[A] {
   def write(x:A, writer:BytesWriter):Unit
-  def read (reader:BytesReader):A
 }
-
-class IntSerializer extends Serializer[Int] {
-  override def write(x:Int, writer:BytesWriter):Unit = { writer.writeInt(x) }
-  override def read(reader:BytesReader):Int = { reader.readInt }
+trait Reader[A] {
+  def read (reader:BytesReader):A
 }
